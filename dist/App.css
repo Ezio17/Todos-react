@@ -1,0 +1,98 @@
+body {
+	background-color: #c0c6ba;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.Todo {
+ margin: auto;
+ width: 400px;
+ margin-top:100px;
+ background-color: #d7e5cc;
+ border-radius: 25px;
+}
+
+.Todo__title {
+  text-align: center;
+  color:#6f90c6;
+}
+
+.Todo__input {
+  margin-top: 5px;
+  width: 200px;
+}
+
+.Todo__input-button {
+  width: 242px;
+  margin: auto;
+}
+
+.Todo__button {
+  margin-left: 5px;
+  width: 80px;
+  height: 23px;
+  border: none;
+  background-color: #bdc3cc;
+}
+
+.Todo__buttons {
+  margin: auto;
+  width: 257px;
+  margin-top:20px;
+  padding-bottom:20px;
+}
+
+.Todo__items {
+  margin-top: 30px;
+  padding-bottom: 10px;
+}
+
+.Todo__item {
+  width: auto;
+}
+
+.Todo__item-text{
+  display: inline-block;
+  width: 85%;
+  margin-left: 10px;
+
+}
+
+.Todo__checkbox {
+  margin-left: 5px;
+}
+
+.Todo__item-hr {
+  margin: 5px;
+}
+
+.Todo__checkbox {
+  width: 3%;
+}
+
+.checked {
+  font-style: italic;
+  text-decoration: line-through;
+}
+
+.Todo__delete-item {
+  width: 6%;
+  display: inline;
+}
+
+.Todo__nothing {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color:#e24848;
+}
+
+.Todo__active-button {
+  background-color: #98baf2;
+  border: none;
+  outline: none;
+}
