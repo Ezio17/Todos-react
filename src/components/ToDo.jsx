@@ -7,10 +7,8 @@ class ToDo extends React.Component {
 
     this.state = {
       items: [],
-      activeItems: [],
-      completedItems: [],
-      value: 0,
-      title: 'allItems',
+      id: 0,
+      filterBy: 'all',
       newTextInput: '',
     }
 
@@ -19,19 +17,17 @@ class ToDo extends React.Component {
         return
       }
 
-      this.setState(({ items, newTextInput, value }) => {
-
+      this.setState(({ items, newTextInput, id }) => {
         let newTodo = {
-          value,
-          text: newTextInput,
+          id,
+          text: this.state.newTextInput,
           checked: false,
         }
 
         return {
           items: [...items, newTodo],
-          activeItems: [...items.filter(item => item.checked === false), newTodo],
           newTextInput: '',
-          value: value + 1,
+          id: id + 1,
         }
       })
     }
@@ -50,9 +46,9 @@ class ToDo extends React.Component {
       })
     }
 
-    this.clickCheckbox = (value) => {
+    this.clickCheckbox = (id) => {
       let newItems = this.state.items.map(todo => {
-        if (todo.value === value) {
+        if (todo.id === id) {
           return {
             ...todo,
             checked: !todo.checked
@@ -63,44 +59,19 @@ class ToDo extends React.Component {
 
       this.setState({
         items: newItems,
-        activeItems: newItems,
-        completedItems: newItems,
       })
     }
 
-    this.activeItems = (title) => {
-      this.setState({
-        activeItems: this.state.items.filter(item => item.checked === false),
-        title,
-      })
-    }
-
-    this.completedItems = (title) => {
-      this.setState({
-        completedItems: this.state.items.filter(item => item.checked === true),
-        title,
-      })
-    }
-
-    this.allItems = (title) => {
-      this.setState({
-        title,
-      })
-    }
-
-    this.deleteItem = (value) => {
+    this.deleteItem = (id) => {
       let newItem = [...this.state.items];
-      let deleteItem = newItem.filter(item => item.value !== value)
       this.setState({
-        items: deleteItem,
-        activeItems: deleteItem.filter(item => item.checked === false),
-        completedItems: deleteItem.filter(item => item.checked === true),
+        items: newItem.filter(item => item.id !== id),
       })
     }
   }
 
   render() {
-    let { title } = this.state;
+    let { filterBy } = this.state;
     return (
       <div className="Todo">
         <h1 className="Todo__title">Todos</h1>
@@ -111,7 +82,7 @@ class ToDo extends React.Component {
             onclickCheckBox={this.clickCheckbox}
             active={this.state.activeItems}
             completed={this.state.completedItems}
-            title={this.state.title}
+            filterBy={this.state.filterBy}
             deleteItem={this.deleteItem}
           />
 
@@ -123,7 +94,7 @@ class ToDo extends React.Component {
             placeholder="Что нужно сделать?"
             value={this.state.newTextInput}
             onChange={(event) => {
-              this.newText(event.target.value, event.target)
+              this.newText(event.target.value)
             }}
             onKeyPress={event => this.handleKeyPress()}
           />
@@ -132,25 +103,25 @@ class ToDo extends React.Component {
         <div className="Todo__buttons">
 
           <button
-            className={title === 'allItems' ?
+            className={filterBy === 'all' ?
               'Todo__button Todo__active-button' : 'Todo__button'}
-            onClick={() => this.allItems('allItems')}
+            onClick={() => this.setState({ filterBy: 'all' })}
           >
             All
           </button>
 
           <button
-            className={title === 'activeItems' ?
+            className={filterBy === 'active' ?
               'Todo__button Todo__active-button' : 'Todo__button'}
-            onClick={() => this.activeItems('activeItems')}
+            onClick={() => this.setState({ filterBy: 'active' })}
           >
             Active
           </button>
 
           <button
-            className={title === 'completedItems' ?
+            className={filterBy === 'done' ?
               'Todo__button Todo__active-button' : 'Todo__button'}
-            onClick={() => this.completedItems('completedItems')}
+            onClick={() => this.setState({ filterBy: 'done' })}
           >
             Completed
           </button>

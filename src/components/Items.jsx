@@ -2,19 +2,19 @@ import React from 'react'
 
 class Items extends React.Component {
   render() {
-    let items = []
     let text = ''
+    let items = []
 
-    switch (this.props.title) {
-      case 'activeItems':
-        items = this.props.active.filter(item => item.checked === false)
+    switch (this.props.filterBy) {
+      case 'active':
+        items = this.props.items.filter(item => item.checked === false)
         text = 'Активных задач нет'
         break;
-      case 'completedItems':
-        items = this.props.completed.filter(item => item.checked === true)
+      case 'done':
+        items = this.props.items.filter(item => item.checked === true)
         text = 'Завершенных задач нет'
         break;
-      case 'allItems':
+      case 'all':
         items = this.props.items
         text = 'Добавьте задачу'
         break;
@@ -24,14 +24,14 @@ class Items extends React.Component {
       <>
         {items.length > 0 ?
           <>
-            {items.map((item, index) => (
-              < div className="Todo__item" key={item.value}>
+            {items.map((item) => (
+              < div className="Todo__item" key={item.id}>
                 <input
                   type="checkbox"
-                  value={item.value}
+                  id={item.id}
                   className="Todo__checkbox"
                   checked={item.checked ? true : false}
-                  onChange={() => this.props.onclickCheckBox(item.value)}
+                  onChange={() => this.props.onclickCheckBox(item.id)}
                 />
 
                 <label
@@ -42,7 +42,7 @@ class Items extends React.Component {
 
                 <button
                   className="Todo__delete-item"
-                  onClick={() => this.props.deleteItem(item.value)}
+                  onClick={() => this.props.deleteItem(item.id)}
                 >-</button>
                 <hr className="Todo__item-hr" />
               </div>
